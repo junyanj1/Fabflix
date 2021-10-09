@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .menu-bar a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            color: #818181;
+            display: block;
+        }
+
+        .menu-bar a:hover {
+            color: #f1f1f1;
+        }
+
+        @media screen and (max-height: 450px) {
+            .menu-bar {padding-top: 15px;}
+            .menu-bar a {font-size: 18px;}
+        }
+
+        h2 {
+            color: darkslategray;
+        }
+    </style>
+    <script src="../js/redirect.js" type="text/javascript" defer="defer"></script>
+</head>
+<body bgcolor="#87cefa">
+    <a href="placeholder.html", target="mainContent">
+        <img src="../resources/dinosaur.png" >
+    </a>
+    <h2>Whatever movie!</h2>
+    <div class="menu-bar">
+        <tr>Users</tr>
+        <a href="login.html", target="mainContent">Login</a>
+        <a href="register.html", target="mainContent">Register</a>
+        <tr>Search movies</tr>
+        <a href="search.html" target="mainContent">Quick search</a>
+        <a href="genrenavi.html" target="mainContent">Browse movies by genre/title</a>
+        <a href="advancedSearch2.html", target="mainContent">Advanced search</a>
+        <a href="movieListPage.html" target="mainContent">Movie List</a>
+        <tr>Billing</tr>
+        <a href="shoppingcart.html" target="mainContent">Shopping Cart</a>
+        <a href="orderhistory.html" target="mainContent">Order History</a>
+    </div>
+</body>
+</html>

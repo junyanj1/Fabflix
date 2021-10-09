@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/62BD4305-4846-5F45-9C89-4D1BC7CC238C/main.js" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/1730298E-F308-B24F-83FB-84DB28E61D78/abn/main.css"/><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/movieDetails.js" type="text/javascript" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <style>
+        h1 {
+            color: blue;
+            font-family: verdana;
+            font-size: 300%;
+
+        }
+        p  {
+            color: brown;
+            font-family: courier;
+            font-size: 160%;
+        }
+    </style>
+</head>
+<body bgcolor="#f0ffff">
+    <h1>Movie Details</h1>
+    <div class="movie"></div>
+    <div class="rates">
+        <p>Ratings</p>
+        <form id = "ratings" action="#">
+            <input type="number" step="0.01" max="10" min="0" class="rate" placeholder="0-10">
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="cart">
+        <p>Add to Shopping Cart</p>
+        <form id="ShoppingCart" action="#">
+            Quantity: <input type="number" min="1" class="quantity">
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>

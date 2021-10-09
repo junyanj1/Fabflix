@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie List Page</title>
+    <style>
+        .pagination {
+            display: inline-block;
+
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+    </style>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/62BD4305-4846-5F45-9C89-4D1BC7CC238C/main.js" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/1730298E-F308-B24F-83FB-84DB28E61D78/abn/main.css"/><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/movieList.js" type="text/javascript" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script>
+        function showPag() {
+            document.getElementById("pagination").style.visibility="visible";
+        }
+    </script>
+</head>
+<body bgcolor="#f5f5dc">
+    <form action="#">
+        <h1>Please specify parameters for movie list</h1>
+        Title: <input type="text" class="title">
+        Genre: <input type="text" class="genre" id="genre">
+        Year: <input type="number" class="year">
+        Director: <input type="text" class="director">
+        <p>Number of results per page: </p>
+        <input type="radio" class="limit" name="limit" value=10>10 <br>
+        <input type="radio" class="limit" name="limit" value=25>25 <br>
+        <input type="radio" class="limit" name="limit" value=50>50 <br>
+        <input type="radio" class="limit" name="limit" value=100>100 <br>
+
+        <br>Which page to view: <input type="number" class="offset" placeholder="multiple of above">
+
+        <p>Order by: </p>
+        <input type="radio" class="orderby" name="orderby" value="title">Title <br>
+        <input type="radio" class="orderby" name="orderby" value="rating">Rating <br>
+
+        <p>Sort by: </p>
+        <input type="radio" class="direction" name="direction" value="ASC">Ascending <br>
+        <input type="radio" class="direction" name="direction" value="DESC">Descending <br>
+
+        <br>
+        <button type="submit" value="submit" onclick="showPag()">Submit</button>
+    </form>
+
+    <div class="movies"></div>
+
+    <div id="pagination" class="pagination" style="visibility: hidden">
+        <a href="#" id="previous">&laquo;</a>
+        <a href="#" id="next">&raquo;</a>
+    </div>
+
+</body>
+</html>
