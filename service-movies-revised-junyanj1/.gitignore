@@ -1,0 +1,14 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore project files
+.idea
+
+# Ignore database_scripts
+database_scripts
+
+# Ignore configs
+*.yaml
