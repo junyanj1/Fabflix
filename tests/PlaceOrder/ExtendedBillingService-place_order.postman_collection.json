@@ -1,0 +1,372 @@
+{
+  "info": {
+    "_postman_id": "0ec198b1-909a-4756-99aa-1ffb7bba522f",
+    "name": "ExtendedBillingService",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Insert a New Creditcard",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "67dd3595-caec-4482-a2e4-a6d50bf135cf",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "d7139140-b72f-4ad7-b5fb-ab370f9c377f",
+            "exec": [
+              "pm.variables.set(\"creditCardId\", JSON.stringify(randomDigit(19)));",
+              "pm.variables.set(\"firstName\", JSON.stringify(randomString(10)));",
+              "pm.variables.set(\"lastName\", JSON.stringify(randomString(10)));",
+              "",
+              "monthInt = randomInt(1,12);",
+              "month = monthInt.toString();",
+              "if (monthInt < 10) month = \"0\" + month;",
+              "",
+              "dayInt = randomInt(1,28).toString();",
+              "day = dayInt.toString();",
+              "if (dayInt < 10) day = \"0\" + day;",
+              "pm.variables.set(\"date\", JSON.stringify ( randomInt(2020, 2024).toString()+ \"-\" + month + \"-\" + day));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": {{creditCardId}},\n    \"firstName\": {{firstName}},\n    \"lastName\": {{lastName}},\n    \"expiration\": {{date}}\n}\n"
+        },
+        "url": {
+          "raw": "http://{{host}}:{{port}}/api/billing/creditcard/insert",
+          "protocol": "http",
+          "host": [
+            "{{host}}"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "billing",
+            "creditcard",
+            "insert"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Insert a New Customer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "67dd3595-caec-4482-a2e4-a6d50bf135cf",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "3995e5b4-8249-494c-8bc4-7b85a722e72c",
+            "exec": [
+              "pm.variables.set(\"email\", JSON.stringify(randomString(10) + \"@\" + randomString(5) + \".com\"));",
+              "pm.variables.set(\"address\", JSON.stringify(randomString(30)));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": {{email}},\n    \"firstName\": {{firstName}},\n    \"lastName\": {{lastName}},\n    \"ccId\": {{creditCardId}},\n    \"address\": {{address}}\n}\n"
+        },
+        "url": {
+          "raw": "http://{{host}}:{{port}}/api/billing/customer/insert",
+          "protocol": "http",
+          "host": [
+            "{{host}}"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "billing",
+            "customer",
+            "insert"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Insert Movie1 to Shopping Cart",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "4162ccb1-b413-4353-ad64-408b2a9accfd",
+            "exec": [
+              "movies = [\"tt0195119\",",
+              "\"tt0195551\",",
+              "\"tt0195565\",",
+              "\"tt0196068\",",
+              "\"tt0196069\",",
+              "\"tt0196811\",",
+              "\"tt0196927\",",
+              "\"tt0197219\",",
+              "\"tt0197862\",",
+              "\"tt0197918\",",
+              "\"tt0197922\",",
+              "\"tt0197929\",",
+              "\"tt0197996\",",
+              "\"tt0198013\",",
+              "\"tt0198748\",",
+              "\"tt0198903\",",
+              "\"tt0199733\",",
+              "\"tt0199898\",",
+              "\"tt0200027\",",
+              "\"tt0200465\"",
+              "];",
+              "",
+              "m1 = movies[randomInt(0,9)];",
+              "m2 = movies[randomInt(10,19)];",
+              "m3 = movies[randomInt(0,19)];",
+              "q1 = randomInt(1,20);",
+              "q2 = randomInt(20,30);",
+              "q3 = randomInt(1,20);",
+              "q4 = randomInt(30,40);",
+              "q5 = randomInt(100,200);",
+              "",
+              "pm.variables.set(\"movie1\", JSON.stringify(m1));",
+              "pm.variables.set(\"movie2\", JSON.stringify(m2));",
+              "pm.variables.set(\"movie3\", JSON.stringify(m3));",
+              "pm.variables.set(\"quantity1\", JSON.stringify(q1));",
+              "pm.variables.set(\"quantity2\", JSON.stringify(q2));",
+              "pm.variables.set(\"quantity3\", JSON.stringify(q3));",
+              "pm.variables.set(\"quantity4\", JSON.stringify(q4));",
+              "pm.variables.set(\"quantity5\", JSON.stringify(q5));",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{  \n   \"email\": {{email}},\n   \"movieId\": {{movie1}},\n   \"quantity\": {{quantity1}}\n} \n"
+        },
+        "url": {
+          "raw": "http://{{host}}:{{port}}/api/billing/cart/insert",
+          "protocol": "http",
+          "host": [
+            "{{host}}"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "billing",
+            "cart",
+            "insert"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Insert Movie2 to Shopping Cart",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "4162ccb1-b413-4353-ad64-408b2a9accfd",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{  \n   \"email\": {{email}},\n   \"movieId\": {{movie2}},\n   \"quantity\": {{quantity2}}\n} \n"
+        },
+        "url": {
+          "raw": "http://{{host}}:{{port}}/api/billing/cart/insert",
+          "protocol": "http",
+          "host": [
+            "{{host}}"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "billing",
+            "cart",
+            "insert"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Order placed successfully (Case 3400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{  \n   \"email\": {{email}}\n} \n"
+        },
+        "url": {
+          "raw": "http://{{host}}:{{port}}/api/billing/order/place",
+          "protocol": "http",
+          "host": [
+            "{{host}}"
+          ],
+          "port": "{{port}}",
+          "path": [
+            "api",
+            "billing",
+            "order",
+            "place"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "9bd9b484-7229-40d5-b2c3-faeeeaa3bba2",
+        "type": "text/javascript",
+        "exec": [
+          "const possible = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";",
+          "",
+          "randomInt = (start, end) => _.random(start, end);",
+          "randomString = (len) => {",
+          "    let string = \"\";",
+          "    for (var i = 0; i < len; i++)",
+          "        string += possible.charAt(randomInt(0, 61));",
+          "    return string;",
+          "};",
+          "randomDigit = (len) => {",
+          "    let string = \"\";",
+          "    for (var i = 0; i < len; i++)",
+          "        string += possible.charAt(randomInt(52, 61));",
+          "    return string;",
+          "};",
+          "",
+          "dynamicSort = (property) => {",
+          "    let sortOrder = 1;",
+          "    if(property[0] === \"-\") {",
+          "        sortOrder = -1;",
+          "        property = property.substr(1);",
+          "    }",
+          "    return (a,b) =>{",
+          "        return ((a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0) * sortOrder;",
+          "    }",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "62dec366-8cf2-4e67-8fbf-0adaee6203d2",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

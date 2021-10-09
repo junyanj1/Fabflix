@@ -1,0 +1,2694 @@
+{
+  "info": {
+    "_postman_id": "de36fabf-123e-40d2-880f-f6949f125066",
+    "name": "IDMService",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "item": [
+        {
+          "name": "/api/idm/register - Valid",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains a success message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(110);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"User registered successfully\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email1}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - Email already in use (Case 16)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(16);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email already in use\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - tooShortPwd (Case 12)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(12);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Password does not meet length requirements\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email2}},\n    \"password\": {{tooShortPassword}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - invalidFormatEmail (Case -11)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-11);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid format\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{invalidFormatEmail}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - json parse exception (Case -3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ba0a5722-26a6-4d95-bffd-877fc388755f",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).not.eql(null);",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.resultCode).eql(-3);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Parse Exception\");",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{invalidJson}}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - null password (Case -12)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-12);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Password has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email3}},\n    \"password\": null\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - empty password (Case -12)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-12);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Password has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email4}},\n    \"password\": \"\"\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - too long email (Case -10)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-10);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{tooLongEmail}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - Password dos not meet character requirements (Case 13)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(13);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Password does not meet character requirements\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email5}},\n    \"password\": {{invalidCharReqPassword}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/register - json mapping exception (Case -2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-2);",
+                  "    pm.expect(jsonData).not.eql(null);",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Mapping Exception\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email6}},\n    \"password\": {{password}},\n    \"extraValues\": {{extraValue}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/register",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Privilege",
+      "item": [
+        {
+          "name": "/api/idm/privilege - valid (Case 140)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "adc7d178-8fb6-4688-ae79-c492f0159afc",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains a success message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(140);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"User has sufficient privilege level\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"plevel\": {{plevel}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/privilege - insufficient privilege (Case 141)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "adc7d178-8fb6-4688-ae79-c492f0159afc",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains a success message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(141);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"User has insufficient privilege level\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"plevel\": {{insufficientPlevel}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/privilege - out of range (Case -14)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "adc7d178-8fb6-4688-ae79-c492f0159afc",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-14);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Privilege level out of valid range\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"plevel\": {{outOfRangePlevel}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/privilege - invalidFormatEmail (Case -11)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-11);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid format\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{invalidFormatEmail}},\n    \"plevel\": {{plevel}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/privilege - too long email (Case -10)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-10);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{tooLongEmail}},\n    \"plevel\": {{plevel}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/privilege - json parse exception (Case -3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ba0a5722-26a6-4d95-bffd-877fc388755f",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).not.eql(null);",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.resultCode).eql(-3);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Parse Exception\");",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{invalidJson}}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/privilege - json mapping exception (Case -2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-2);",
+                  "    pm.expect(jsonData).not.eql(null);",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Mapping Exception\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"plevel\": {{plevel}},\n    \"extraValues\": {{extraValue}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/privilege",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "privilege"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "/api/idm/login - login successfully (Case 120)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"loginReturnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains a success message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(120);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"User logged in successfully\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "b67c0121-e2b8-4e4e-9669-788a698e1672",
+                "exec": [
+                  "const email = randomString(randomInt(3,10))+ '@test.com';",
+                  "pm.variables.set('email', JSON.stringify(email));",
+                  "const password = [randomString(1), randomString(1),randomString(1),'@',randomString(1),randomString(1),'a','2','A',randomString(1),randomString(1)]",
+                  "pm.variables.set('password', JSON.stringify(password));",
+                  "pm.sendRequest(requestBuilder('/api/idm/register', {email, password}));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{email}},\n\t\"password\":{{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - invalidPasswordLength (Case -12)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-12);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Password has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"password\": null\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - invalidEmailAddrFormat (Case -11)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-11);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid format\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{invalidFormatEmail}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - invalidEmailAddrLength (Case -10)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-10);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{tooLongEmail}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - JSONParseException (Case -3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-3);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Parse Exception\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{invalidJson}}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - JSONMappingException (Case -2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-2);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Mapping Exception\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{existingEmail}},\n    \"password\": {{password}},\n    \"extraValues\": {{extraValue}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - passwordDoNotMatch (Case 11)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(11);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Passwords do not match\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email1}},\n    \"password\": {{mismatchedPassword}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/login - userNotFound (Case 14)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ad5a786-e956-4eba-b4f9-5c1cb7be4c2e",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(14);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"User not found\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{nonExistingEmail}},\n    \"password\": {{password}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/login",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "VerifySession",
+      "item": [
+        {
+          "name": "/api/idm/session - Session is active (case 130)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"sessionReturnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains a success message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(130);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session is active\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "56372c2b-a121-4217-8f09-588e73f8f49a",
+                "exec": [
+                  "const email = randomString(randomInt(3,10))+ '@test.com';",
+                  "pm.variables.set('email', JSON.stringify(email));",
+                  "const password = [randomString(1), randomString(1),randomString(1),'@',randomString(1),randomString(1),'a','2','A',randomString(1),randomString(1)]",
+                  "pm.sendRequest(requestBuilder('/api/idm/register', {email, password}), ()=>{",
+                  "   pm.sendRequest(requestBuilder('/api/idm/login', {email, password}), (err, res) => {",
+                  "       pm.variables.set('sessionID', JSON.stringify(res.json().sessionID));",
+                  "   });",
+                  "});",
+                  "setTimeout(function(){}, [2000]);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{email}},\n\t\"sessionID\":{{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - Session is closed (case 132)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(132);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session is closed\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{closedSessionEmail}},\n\t\"sessionID\":{{closedSessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Revoke after Timeout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(133);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session is revoked\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4a718b66-40ec-4fad-9ffe-fbf7b3ad6b1b",
+                "exec": [
+                  "const email = randomString(randomInt(3,10))+ '@test.com';",
+                  "pm.variables.set('email', JSON.stringify(email));",
+                  "const password = [randomString(1), randomString(1),randomString(1),'@',randomString(1),randomString(1),'a','2','A',randomString(1),randomString(1)]",
+                  "pm.sendRequest(requestBuilder('/api/idm/register', {email, password}), ()=>{",
+                  "   pm.sendRequest(requestBuilder('/api/idm/login', {email, password}), (err, res) => {",
+                  "       pm.variables.set('sessionID', JSON.stringify(res.json().sessionID));",
+                  "   });",
+                  "});",
+                  "setTimeout(function(){}, [6500]);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{email}},\n\t\"sessionID\":{{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - Session is revoked (case 133)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(133);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session is revoked\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{email}},\n\t\"sessionID\":{{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Renew before Timeout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"sessionReturnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains a success message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(130);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session is active\");",
+                  "    pm.expect(jsonData.sessionID).not.to.eql(JSON.parse(pm.variables.get(\"sessionID\")));",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4a718b66-40ec-4fad-9ffe-fbf7b3ad6b1b",
+                "exec": [
+                  "const email = randomString(randomInt(3,10))+ '@test.com';",
+                  "pm.variables.set('email', JSON.stringify(email));",
+                  "const password = [randomString(1), randomString(1),randomString(1),'@',randomString(1),randomString(1),'a','2','A',randomString(1),randomString(1)]",
+                  "pm.sendRequest(requestBuilder('/api/idm/register', {email, password}), ()=>{",
+                  "   pm.sendRequest(requestBuilder('/api/idm/login', {email, password}), (err, res) => {",
+                  "       pm.variables.set('sessionID', JSON.stringify(res.json().sessionID));",
+                  "   });",
+                  "});",
+                  "setTimeout(function(){}, [4000]);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{email}},\n\t\"sessionID\":{{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - Session is expired (case 131)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(131);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session is expired\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "25a53bbd-f102-4f0d-9995-e9e11a0822de",
+                "exec": [
+                  "const email = randomString(randomInt(3,10))+ '@test.com';",
+                  "pm.variables.set('email', JSON.stringify(email));",
+                  "const password = [randomString(1), randomString(1),randomString(1),'@',randomString(1),randomString(1),'a','2','A',randomString(1),randomString(1)]",
+                  "pm.sendRequest(requestBuilder('/api/idm/register', {email, password}), ()=>{",
+                  "   pm.sendRequest(requestBuilder('/api/idm/login', {email, password}), (err, res) => {",
+                  "       pm.variables.set('sessionID', JSON.stringify(res.json().sessionID));",
+                  "   });",
+                  "});",
+                  "setTimeout(function(){}, [9000]);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{email}},\n\t\"sessionID\":{{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - Session not found (case 134)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(134);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Session not found\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{closedSessionEmail}},\n\t\"sessionID\":{{unfoundSessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - User not found (case 14)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(14);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"User not found\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\":{{nonExistingEmail}},\n\t\"sessionID\":{{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - invalidFormatEmail (Case -11)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-11);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid format\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{invalidFormatEmail}},\n    \"sessionID\": {{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - too long email (Case -10)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-10);",
+                  "",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"Email address has invalid length\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{tooLongEmail}},\n    \"sessionID\": {{sessionID}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - json parse exception (Case -3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).not.eql(null);",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.resultCode).eql(-3);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Parse Exception\");",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{invalidJson}}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/idm/session - json mapping exception (Case -2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab80a059-2963-4b20-89f9-296cd578175c",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has a body in json format\", function () {",
+                  "    pm.response.to.be.withBody;",
+                  "    pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test('Response matches the required schema', function() {",
+                  "    pm.expect(tv4.validate(pm.response.json(), JSON.parse(pm.variables.get(\"returnSchema\")),false, true)).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains an error message\", function () {",
+                  "    let jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.resultCode).eql(-2);",
+                  "    pm.expect(jsonData).not.eql(null);",
+                  "    pm.expect(jsonData.message).not.eql(null);",
+                  "    pm.expect(jsonData.message).to.contain(\"JSON Mapping Exception\");",
+                  "    ",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is less than 1000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {{email1}},\n    \"password\": {{password}},\n    \"extraValues\": {{extraValue}}\n}"
+            },
+            "url": {
+              "raw": "http://{{host}}:{{port}}/api/idm/session",
+              "protocol": "http",
+              "host": [
+                "{{host}}"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "api",
+                "idm",
+                "session"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "52479263-9522-44e5-af0b-3e0820d7afa2",
+        "type": "text/javascript",
+        "exec": [
+          "const possible = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890\";",
+          "",
+          "randomInt = (start, end) => _.random(start, end);",
+          "randomString = (len) => {",
+          "    let string = \"\";",
+          "    for (var i = 0; i < len; i++)",
+          "        string += possible.charAt(randomInt(0, 61));",
+          "    return string;",
+          "};",
+          "",
+          "host = ()=> pm.globals.get(\"host\");",
+          "port = ()=> pm.globals.get(\"port\");",
+          "requestBuilder = (api, payload) => {",
+          "return {",
+          "           url:  \"http://\"+host()+\":\"+port() + api, ",
+          "           method: 'POST',",
+          "           header: {",
+          "               'Accept': 'application/json',",
+          "               'Content-Type': 'application/json',",
+          "           },",
+          "           body: {",
+          "               mode :\"raw\",",
+          "               raw: JSON.stringify(payload)",
+          "           }",
+          "       };",
+          "};"
+        ]
+      }
+    }
+  ]
+}

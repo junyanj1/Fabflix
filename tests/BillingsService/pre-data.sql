@@ -1,0 +1,18 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE carts;
+DELETE FROM creditcards WHERE id = '9999999999999999999';
+INSERT INTO creditcards VALUES ('9999999999999999999', 'The Test First Name', 'The Test Last Name', CURDATE() +  INTERVAL 1 DAY);
+DELETE FROM creditcards WHERE id = '12341234123412341234';
+INSERT INTO creditcards VALUES ('12341234123412341234', 'John', 'Doe', CURDATE() +  INTERVAL 1 DAY);
+DELETE FROM creditcards WHERE id = '80082088208008208820';
+INSERT INTO creditcards VALUES ('80082088208008208820', 'Peter', 'Anteater', CURDATE() +  INTERVAL 1 DAY);
+DELETE FROM customers WHERE email = 'customer1@test.com';
+DELETE FROM sales WHERE email = 'customer1@test.com';
+DELETE FROM customers WHERE email = 'customer2@test.com';
+DELETE FROM sales WHERE email = 'customer2@test.com';
+DELETE FROM customers WHERE email = 'customer3@test.com';
+DELETE FROM sales WHERE email = 'customer3@test.com';
+INSERT INTO customers VALUES ('customer1@test.com','first name1', 'last name1', '9999999999999999999', 'some address1');
+INSERT INTO customers VALUES ('customer2@test.com','first name2', 'last name2', '12341234123412341234', 'some address2');
+INSERT INTO customers VALUES ('customer3@test.com','first name3', 'last name3', '80082088208008208820', 'some address3');
+SET FOREIGN_KEY_CHECKS = 1;

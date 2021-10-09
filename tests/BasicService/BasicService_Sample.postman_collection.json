@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "0e1d8390-fcd4-4264-8e36-ab94fb284630",
+		"name": "\bBasicService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/basicService/validateString - Length Matched String",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d55569a-100a-48c0-9a1d-4dfa242d3388",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has a body in json format\", function () {",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    ",
+							"    pm.response.to.have.jsonBody(\"resultCode\");",
+							"    pm.response.to.have.jsonBody(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains a success message\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData).not.eql(null);",
+							"    pm.expect(jsonData.message).not.eql(null);",
+							"    pm.expect(jsonData.resultCode).eql(0);",
+							"    pm.expect(jsonData.message).to.include(\"String length matched\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input\": \"the quick brown fox jumps over the lazy dog\",\n    \"len\": 9\n}\n"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/basicService/validateString",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}} ",
+					"path": [
+						"api",
+						"basicService",
+						"validateString"
+					]
+				},
+				"description": "This endpoint validates if a movie exists"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/basicService/validateString - Mismatched Length String",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d55569a-100a-48c0-9a1d-4dfa242d3388",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    // the request should still be finished successfully, regardless the response.",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has a body in json format\", function () {",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    ",
+							"    pm.response.to.have.jsonBody(\"resultCode\");",
+							"    pm.response.to.have.jsonBody(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains an unsuccess message\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).eql(1);",
+							"    pm.expect(jsonData.message).not.eql(null);",
+							"    pm.expect(jsonData.message).to.contain(\"length does not match\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"input\": \"the quick brown fox jumps over the lazy dog\",\n    \"len\": 10\n}\n"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/basicService/validateString",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}} ",
+					"path": [
+						"api",
+						"basicService",
+						"validateString"
+					]
+				},
+				"description": "This endpoint validates if a movie exists"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/basicService/validateString - Invalid Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d55569a-100a-48c0-9a1d-4dfa242d3388",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has a body in json format\", function () {",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    ",
+							"    pm.response.to.have.jsonBody(\"resultCode\");",
+							"    pm.response.to.have.jsonBody(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains an unsuccess message\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).eql(2);",
+							"    pm.expect(jsonData.message).not.eql(null);",
+							"    pm.expect(jsonData.message).to.contain(\"Invalid request format\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"invalid-input\": \"the quick brown fox jumps over the lazy dog\",\n    \"invalid-len\": 9\n}\n"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/basicService/validateString",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}} ",
+					"path": [
+						"api",
+						"basicService",
+						"validateString"
+					]
+				},
+				"description": "This endpoint validates if a movie exists"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/basicService/get - Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d55569a-100a-48c0-9a1d-4dfa242d3388",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has a body in json format\", function () {",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    ",
+							"    pm.response.to.have.jsonBody(\"resultCode\");",
+							"    pm.response.to.have.jsonBody(\"message\");",
+							"    pm.response.to.have.jsonBody(\"numRecords\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Response contains a success message\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).eql(0);",
+							"",
+							"    pm.expect(jsonData.message).not.eql(null);",
+							"    pm.expect(jsonData.message).to.contain(\"success\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Response contains the correct result\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    // the number should match the records in database.",
+							"    // you may test yourself. grading script will manage the database outside postman/newman",
+							"    pm.expect(jsonData.numRecords).eql(10);",
+							"    ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/basicService/get",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"basicService",
+						"get"
+					]
+				},
+				"description": "This endpoint validates if a movie exists"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/basicService/get/{id} - Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d55569a-100a-48c0-9a1d-4dfa242d3388",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has a body in json format\", function () {",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    ",
+							"    pm.response.to.have.jsonBody(\"resultCode\");",
+							"    pm.response.to.have.jsonBody(\"message\");",
+							"    pm.response.to.have.jsonBody(\"record\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Response contains a success message\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).eql(0);",
+							"",
+							"    pm.expect(jsonData.message).not.eql(null);",
+							"    pm.expect(jsonData.message).to.contain(\"success\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Response contains the correct result\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    // the output should match the records in database.",
+							"    // you may test yourself. grading script will manage the database outside postman/newman",
+							"    pm.expect(jsonData.record).eql(",
+							"                        {",
+							"                            \"id\": 1,",
+							"                            \"sentence\": \"the quick brown fox jumps over the lazy dog.\",",
+							"                            \"len\": 9",
+							"                        });",
+							"    ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/basicService/get?id=1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"basicService",
+						"get"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "This endpoint validates if a movie exists"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/basicService/test/hello",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36358701-1a24-4107-b8c2-631cf748d8df",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/basicService/test/hello",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"basicService",
+						"test",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3481bc95-8305-45ee-a956-c4a5bba329e7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3938a872-0581-40cf-970e-c4f0b54efdbe",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
